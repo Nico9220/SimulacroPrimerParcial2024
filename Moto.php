@@ -77,7 +77,22 @@ class Moto{
         $this->activa = $activaInput;
     }
 
+    //Se calcula el valor de la venta de moto
+    public function darPrecioVenta($anioActual){
+        if($this->getActiva() == false){
+            return -1;
+        }
+        $anioTranscurrido = $anioActual - $this->getModelo();
+        $_venta = $this->costo + $this->costo * ($anioTranscurrido * $this->getPorcentajeIncrementoAnual());
+        return $_venta;
+    }
+
     public function __toString(){
-        
+        return "Codigo: " .$this->getCodigo() . "\n" . 
+        "Costo: " .$this->getCosto() . "\n" . 
+        "Modelo: " .$this->getModelo() . "\n" . 
+        "Descripcion: " .$this->getDescripcion() . "\n" . 
+        "Incremento: " .$this->getPorcentajeIncrementoAnual() . "\n" . 
+        "Activa: " .$this->getActiva() . "\n";
     }
 }
