@@ -77,6 +77,13 @@ class Moto{
         $this->activa = $activaInput;
     }
 
+    //Metodo porcentaje
+    public function conversorPorcentaje($porcentajeIncrementoAnualInput){
+        $this->porcentajeIncrementoAnual = $porcentajeIncrementoAnualInput / 100;
+
+        return $this->porcentajeIncrementoAnual;
+    }
+
     //Se calcula el valor de la venta de moto
     public function darPrecioVenta($anioActual){
         if($this->getActiva() == false){

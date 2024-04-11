@@ -20,6 +20,8 @@ venta.
 número de documento de un Cliente y retorna una colección con las ventas realizadas al cliente.
  */
 
+include_once "Venta.php";
+
 class Empresa{
     private $denominacion;
     private $direccion;
@@ -115,7 +117,36 @@ venta.
     }
     
     public function registrarVenta($colCodigosMoto, $objCliente){
-        $colCodigosMoto = $this->codigosMoto($this->arrayMotos);
+        //Primero registramos si el cliente se encuentra dado de alta para poder comprar
+        $condicion = $objCliente->getEstadoCliente();
+        $valorFinal = 0;
+        if($condicion === "alta"){
+
+            //se crea el obj venta con la colMotos de ventas vacia y el precio igual a 0
+            $objVenta = new Venta (0, "", "", [], 0);
+
+            //recorro la coleccion de codigos de moto
+            for($i=0;$i < count($colCodigosMoto); $i++){
+                $unaMoto = $this->getMotos($colCodigosMoto[$i]);
+                if($unaMoto != null){
+                    $objVenta->incorporarMoto($unaMoto);
+                }
+            }
+            $valorFinal = $objVenta->getPrecioFinal();
+        }
+        return $valorFinal;
+    }
+
+    /**
+    *   Implementar el método retornarVentasXCliente($tipo,$numDoc) que recibe por parámetro el tipo y
+número de documento de un Cliente y retorna una colección con las ventas realizadas al cliente. 
+     */ 
+
+    public function retornarVentasXCliente($tipoDocu, $documento){
+        $ventasXCliente = [];
+
+
+
     }
 
     public function __toString(){
