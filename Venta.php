@@ -65,7 +65,12 @@ Utilizar el método que calcula el precio de venta de la moto donde crea necesar
             $this->precioFinal = $precioFinalInput;
         }
 
-        //$numeroInput, $fechaInput, $referenciaInput, $precioFinalInput
+        public function incorporarMoto($objMoto){
+            if ($objMoto->getActiva()){
+                $this->arrayMotos[] = $objMoto;
+                $this->precioFinal += $objMoto->darPrecioVenta();
+            }
+        }
 
         public function __toString(){
             return "Numero: " .$this->getNumero() . "\n" . 
