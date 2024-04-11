@@ -106,8 +106,16 @@ El método debe setear los variables instancias de venta que corresponda y retor
 venta.
      */
 
+    public function codigosMoto($arrayMotos){
+        $colCodigosMoto = [];
+        foreach($arrayMotos as $moto){
+            $colCodigosMoto[] = $moto->getCodigo();
+        }
+        return $colCodigosMoto;
+    }
+    
     public function registrarVenta($colCodigosMoto, $objCliente){
-        
+        $colCodigosMoto = $this->codigosMoto($this->arrayMotos);
     }
 
     public function __toString(){
