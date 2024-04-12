@@ -81,8 +81,6 @@ class Empresa{
         $this->arrayVentas[] = $ventas;
     }
 
-    //Implementar el método retornarMoto($codigoMoto) que recorre la colección de motos de la Empresa y retorna la referencia al objeto moto cuyo código coincide con el recibido por parámetro.
-
     public function retornarMoto($codigoMoto){
         $i = 0;
         $cantidadMotos = count($this->arrayMotos);
@@ -98,23 +96,7 @@ class Empresa{
         return $motoEncontrada;
     }
 
-    /**
-     * 6. Implementar el método registrarVenta($colCodigosMoto, $objCliente) método que recibe por
-parámetro una colección de códigos de motos, la cual es recorrida, y por cada elemento de la colección
-se busca el objeto moto correspondiente al código y se incorpora a la colección de motos de la instancia
-Venta que debe ser creada. Recordar que no todos los clientes ni todas las motos, están disponibles
-para registrar una venta en un momento determinado.
-El método debe setear los variables instancias de venta que corresponda y retornar el importe final de la
-venta.
-     */
-
-    public function codigosMoto($arrayMotos){
-        $colCodigosMoto = [];
-        foreach($arrayMotos as $moto){
-            $colCodigosMoto[] = $moto->getCodigo();
-        }
-        return $colCodigosMoto;
-    }
+    
     
     public function registrarVenta($colCodigosMoto, $objCliente){
         //Primero registramos si el cliente se encuentra dado de alta para poder comprar
@@ -137,16 +119,17 @@ venta.
         return $valorFinal;
     }
 
-    /**
-    *   Implementar el método retornarVentasXCliente($tipo,$numDoc) que recibe por parámetro el tipo y
-número de documento de un Cliente y retorna una colección con las ventas realizadas al cliente. 
-     */ 
-
     public function retornarVentasXCliente($tipoDocu, $documento){
         $ventasXCliente = [];
-
-
-
+    
+        // Recorrer la colección de ventas
+        foreach ($this->arrayVentas as $venta) {
+            // Verifico si el cliente asociado a la venta coincide con el tipo y número de documento dados
+            if ($venta->getCliente()->getTipoDocu() === $tipoDocu && $venta->getCliente()->getDocumento() === $documento) {
+                $ventasXCliente[] = $venta;
+            }
+        }
+        return $ventasXCliente;
     }
 
     public function __toString(){
