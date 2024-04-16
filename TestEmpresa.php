@@ -30,36 +30,38 @@ corresponden con el tipo y número de documento del $objCliente2
 include_once "Cliente.php";
 include_once "Moto.php";
 include_once "Empresa.php";
+include_once "Venta.php";
 
-//Creo dos instancias de la clase Cliente
+//$nom, $ape, $est, $tipo, $doc
+$objCliente1 = new Cliente ("Nicolas", "Caretta", true, "dni", 36329071);
+$objCliente2 = new Cliente ("Florencia", "Gutierrez", true, "dni", 41780957);
 
-$objCliente1 = new Cliente ("Nicolas", "Caretta", true, "DNI", "36329071");
-$objCliente2 = new Cliente ("Florencia", "Ramirez", "alta", "DNI", "39765293");
+$objMoto1 = new Moto(11,2230000,2022, "Benelli Imperiale 400", 85, true);
+$objMoto2 = new Moto(12,584000,2021, "Zanella Zr 150 Ohc", 70, true);
+$objMoto3 = new Moto(13,9999900,2023, "Zanella Patagonian Eagle 250", 55, false);
 
-//Creo tres objetos Moto
-//código, costo ,anio_fabricacion ,Descripcion ,porc_increment ,activo
-$objMoto1 = new Moto (11, 2230000, 2022, "Benelli Imperiale 400", 85, true);
-$objMoto2 = new Moto(12, 584000, 2021, "Zanella Zr 150Ohc", 70,true);
-$objMoto3 = new Moto(13, 999900, 2023, "Zanella Patagonian Eagle 250", 55, false);
+$objEmpresa = new Empresa ("Alta gama","Av. Argentina 123",[$objMoto1, $objMoto2, $objMoto3],[$objCliente1, $objCliente2],[]);
 
-//Objeto Empresa
+//Punto 5
+// Invocamos al método registrarVenta con la colección de códigos de motos y el objeto Cliente $objCliente2
+$valorFinal = $objEmpresa->registrarVenta([11, 12, 13], $objCliente2);
+echo "El valor final de la venta es: $valorFinal \n";
 
-$objEmpresa = new Empresa ("Alta Gama", "AV Argentina 123", [$objCliente1, $objCliente2], [$objMoto1, $objMoto2, $objMoto3], []);
+//Punto 6
+$valorFinal = $objEmpresa->registrarVenta([0], $objCliente2);
+echo "El valor final de la venta es: $valorFinal \n";
 
-$resultadoVenta = $objEmpresa->registrarVenta([11, 12, 13], $objCliente2);
-echo "El resultado de la venta es: " . $resultadoVenta;
+//Punto 7
+$valorFinal = $objEmpresa->registrarVenta([2], $objCliente2);
+echo "El valor final de la venta es: $valorFinal \n";
 
-$resultadoVenta2 = $objEmpresa->registrarVenta([0], $objCliente2);
-echo "El resultado de la venta es: " . $resultadoVenta2;
+//Punto 8
+$ventasClienteString = $objEmpresa->obtenerVentasXClienteString($objCliente1->getTipoDoc(), $objCliente1->getDocumento());
+echo "La coleccion del cliente es: $ventasClienteString \n";
 
-$resultadoVenta3 = $objEmpresa->registrarVenta([2], $objCliente2);
-echo "El resultado de la venta es: " . $resultadoVenta3;
+//Punto 9
+$ventasClienteString = $objEmpresa->obtenerVentasXClienteString($objCliente2->getTipoDoc(), $objCliente2->getDocumento());
+echo "La coleccion del cliente es: $ventasClienteString \n";
 
-$ventasCliente1 = $objEmpresa->retornarVentasXCliente($objCliente1->getTipoDocu(), $objCliente1->getDocumento());
-echo "Ventas para el cliente 1: \n";
-
-$ventasCliente1 = $objEmpresa->retornarVentasXCliente($objCliente2->getTipoDocu(), $objCliente2->getDocumento());
-echo "Ventas para el cliente 2: \n";
-
-echo "Informacion de la empresa: \n";
+//Punto 10
 echo $objEmpresa;

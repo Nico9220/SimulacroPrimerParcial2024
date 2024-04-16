@@ -18,27 +18,28 @@ anio: cantidad de años transcurridos desde que se fabricó la moto.
 por_inc_anual: porcentaje de incremento anual de la moto.
  */
 
-class Moto{
+class Moto 
+{
     private $codigo;
     private $costo;
     private $modelo;
     private $descripcion;
-    private $porcentajeIncrementoAnual;
+    private $porcentaje_incremento_anual; 
     private $activa;
 
-    public function __construct($codigoInput, $costoInput, $modeloInput, $descripcionInput, $porcentajeIncrementeAnualInput, $activaInput){
-        $this->codigo = $codigoInput;
-        $this->costo = $costoInput;
-        $this->modelo = $modeloInput;
-        $this->descripcion = $descripcionInput;
-        $this->porcentajeIncrementoAnual = $porcentajeIncrementeAnualInput;
-        $this->activa = $activaInput;
+    public function __construct($cod, $cost, $model, $desc, $prAnual, $act){
+        $this->codigo = $cod;
+        $this->costo = $cost;
+        $this->modelo = $model;
+        $this->descripcion = $desc;
+        $this->porcentaje_incremento_anual = $prAnual;
+        $this->activa = $act;
     }
 
-    //Metodos GET de las variables instancia
+     //Get
 
     public function getCodigo(){
-    return $this->codigo;
+        return $this->codigo;
     }
     public function getCosto(){
         return $this->costo;
@@ -49,57 +50,47 @@ class Moto{
     public function getDescripcion(){
         return $this->descripcion;
     }
-    public function getPorcentajeIncrementoAnual(){
-        return $this->porcentajeIncrementoAnual;
+    public function getPorcentajeAnual(){
+        return $this->porcentaje_incremento_anual;
     }
     public function getActiva(){
         return $this->activa;
     }
 
-    //Metodo SET de las variables instancia
-    
-    public function setCodigo($codigoInput){
-        $this->codigo = $codigoInput;
+     //SET
+
+    public function setCodigo($cod){
+        $this->codigo = $cod;
     }
-    public function setCosto($costoInput){
-        $this->costo = $costoInput;
+    public function setCosto($cost){
+        $this->costo = $cost;
     }
-    public function setModelo($modeloInput){
-        $this->modelo = $modeloInput;
+    public function setModelo($model){
+        $this->modelo = $model;
     }
-    public function setDescripcion($descripcionInput){
-        $this->descripcion = $descripcionInput;
+    public function setPorcentajeAnual($prAnual){
+        $this->porcentaje_incremento_anual = $prAnual;
     }
-    public function setPorcentajeIncrementoAnual($porcentajeIncrementeAnualInput){
-        $this->porcentajeIncrementoAnual = $porcentajeIncrementeAnualInput;
-    }
-    public function setActiva($activaInput){
-        $this->activa = $activaInput;
+    public function setActiva($act){
+        $this->activa = $act;
     }
 
-    //Metodo porcentaje
-    public function conversorPorcentaje($porcentajeIncrementoAnualInput){
-        $this->porcentajeIncrementoAnual = $porcentajeIncrementoAnualInput / 100;
-
-        return $this->porcentajeIncrementoAnual;
-    }
-
-    //Se calcula el valor de la venta de moto
-    public function darPrecioVenta($anioActual){
-        if($this->getActiva() == false){
+    public function darPrecioVenta(){
+        if($this->getActiva() != true){
             return -1;
         }
-        $anioTranscurrido = $anioActual - $this->getModelo();
-        $_venta = $this->costo + $this->costo * ($anioTranscurrido * $this->getPorcentajeIncrementoAnual());
+        $anioActual = intval(date("Y"));
+        $anio = $anioActual - $this->getModelo();
+         $_venta = $this->getCosto() + $this->getCosto() * ($anio * $this->getPorcentajeAnual());
+        
         return $_venta;
     }
 
     public function __toString(){
-        return "Codigo: " .$this->getCodigo() . "\n" . 
-        "Costo: " .$this->getCosto() . "\n" . 
-        "Modelo: " .$this->getModelo() . "\n" . 
-        "Descripcion: " .$this->getDescripcion() . "\n" . 
-        "Incremento: " .$this->getPorcentajeIncrementoAnual() . "\n" . 
-        "Activa: " .$this->getActiva() . "\n";
+        return "Codigo: " . $this->getCodigo() . "\n" . 
+        "Costo: " . $this->getCosto() . "\n" . 
+        "Modelo: " . $this->getModelo() . "\n" . 
+        "Porcentaje de incremento anual: " . $this->getPorcentajeAnual(). "\n" . 
+        "Activa: " . $this->getActiva() . "\n";
     }
 }

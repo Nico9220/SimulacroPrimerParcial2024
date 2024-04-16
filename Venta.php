@@ -14,69 +14,77 @@ vez que incorpora una moto a la venta, debe actualizar la variable instancia pre
 Utilizar el método que calcula el precio de venta de la moto donde crea necesario
  */
 
-    class Venta{
-        private $numero;
-        private $fecha;
-        private $referencia;
-        private $arrayMotos;
-        private $precioFinal;
+class Venta
+{
+    private $numero;
+    private $fecha;
+    private $objCliente;
+    private $colMotos;
+    private $precioFinal;
 
-        public function __construct($numeroInput, $fechaInput, $referenciaInput, $precioFinalInput){
-            $this->numero = $numeroInput;
-            $this->fecha = $fechaInput;
-            $this->referencia = $referenciaInput;
-            $this->arrayMotos = [];
-            $this->precioFinal = $precioFinalInput;
-        }
+    public function __construct($id_venta, $fechaIn, $objCliente, $precio){
+        $this->numero = $id_venta;
+        $this->fecha = $fechaIn;
+        $this->objCliente = $objCliente;
+        $this->colMotos = [];
+        $this->precioFinal = $precio;
+    }
 
-        //Metodos GET de las variables instancia
+     //Getters
 
-        public function getNumero(){
-            return $this->numero;
-        }
-        public function getFecha(){
-            return $this->fecha;
-        }
-        public function getReferencia(){
-            return $this->referencia;
-        }
-        public function getArrayMotos(){
-            return $this->arrayMotos;
-        }
-        public function getPrecioFinal(){
-            return $this->precioFinal;
-        }
+    public function getNumero(){
+        return $this->numero;
+    }
+    public function getFecha(){ 
+        return $this->fecha;
+    }
+    public function getObjCliente(){
+        return $this->objCliente;
+    }
+    public function getColMotos(){
+        return $this->colMotos;
+    }
+    public function getPrecioFinal(){
+        return $this->precioFinal;
+    }
 
-        //Metodos SET de las variables instancia
+     //Setters
 
-        public function setNumero($numeroInput){
-            $this->numero = $numeroInput;
-        }
-        public function setFecha($fechaInput){
-            $this->fecha = $fechaInput;
-        }
-        public function setReferencia($referenciaInput){
-            $this->referencia = $referenciaInput;
-        }
-        public function setArrayMotos($moto){
-            $this->arrayMotos [] = $moto;
-        }
-        public function setPrecioFinal($precioFinalInput){
-            $this->precioFinal = $precioFinalInput;
-        }
+    public function setNumero($id_venta){
+        $this->numero = $id_venta;
+    }
+    public function setFecha($fechaIn){
+        $this->fecha = $fechaIn;
+    }
+    public function setObjCliente($objCliente){
+        $this->objCliente = $objCliente;
+    }
+    public function setColMotos($colMotos){
+        $this->colMotos = $colMotos;
+    }
+    public function setPrecioFinal($precio){
+        $this->precioFinal = $precio;
+    }
 
-        public function incorporarMoto($objMoto){
-            if ($objMoto->getActiva()){
-                $this->arrayMotos[] = $objMoto;
-                $this->precioFinal += $objMoto->darPrecioVenta();
+    public function incorporarMoto($objMoto){
+         //vemos si la moto esta disponible para la venta
+        if ($objMoto->getActiva()){
+            $precio = $this->getPrecioFinal() + $objMoto->darPrecioVenta();
+            $this->setPrecioFinal($precio);
+             // Obtenemos la colección de motos actual y agregamos la nueva moto
+            $colMotos = $this->getColMotos();
+            $colMotos[] = $objMoto;
+            $this->setColMotos($colMotos);
             }
         }
 
-        public function __toString(){
-            return "Numero: " .$this->getNumero() . "\n" . 
-            "Fecha: " . $this->getFecha() . "\n" . 
-            "Referencia de cliente: " . $this->getReferencia() . "\n" . 
-            "Motos: " . $this->getArrayMotos() . "\n" . 
-            "Precio Final: " . $this->getPrecioFinal() . "\n";
-        }
+    public function __toString(){
+        return "Numero: " . $this->getNumero() . "\n" . 
+        "Fecha: " . $this->getFecha() . "\n" . 
+        "Datos del cliente: " . $this->getObjCliente() . "\n" . 
+        "Moto: " . $this->getColMotos() . "\n" . 
+        "Precio Final: " . $this->getPrecioFinal() . "\n";
     }
+
+
+}

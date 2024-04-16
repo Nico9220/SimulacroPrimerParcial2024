@@ -9,62 +9,64 @@
  * 3. Redefinir el método _toString para que retorne la información de los atributos de la clase.
  */
 
-    class Cliente{
-        private $nombre;
-        private $apellido;
-        private $estadoCliente;
-        private $documento;
-        private $tipoDocu;
+class Cliente
+{
+    private $nombre;
+    private $apellido;
+    private $estado;
+    private $tipoDoc;
+    private $documento;
 
-        public function __construct($nombreInput, $apellidoInput, $estadoClienteInput, $documentoInput, $tipoDocuInput){
-            $this->nombre = $nombreInput;
-            $this->apellido = $apellidoInput;
-            $this->estadoCliente = $estadoClienteInput;
-            $this->documento = $documentoInput;
-            $this->tipoDocu = $tipoDocuInput;
-        }
-
-        //Metodos GET de las variables instancia
-        
-        public function getNombre(){
-            return $this->nombre;
-        }
-        public function getApellido(){
-            return $this->apellido;
-        }
-        public function getEstadoCliente(){
-            return $this->estadoCliente;
-        }
-        public function getDocumento(){
-            return $this->documento;
-        }
-        public function getTipoDocu(){
-            return $this->tipoDocu;
-        }
-
-        //Metodos SET de las variables instancia
-
-        public function setNombre($nombreInput){
-            $this->nombre = $nombreInput;
-        }
-        public function setApellido($apellidoInput){
-            $this->apellido = $apellidoInput;
-        }
-        public function setEstadoCliente($estadoClienteInput){
-            $this->estadoCliente = $estadoClienteInput;
-        }
-        public function setDocumento($documentoInput){
-            $this->documento = $documentoInput;
-        }
-        public function setTipoDocu($tipoDocuInput){
-            $this->tipoDocu = $tipoDocuInput;
-        }
-
-        public function __toString(){
-            return "Nombre del cliente: " .$this->getNombre() . "\n" .
-            "Apellido: " . $this->getApellido() . "\n" . 
-            "Estado: " .$this->getEstadoCliente() . "\n" . 
-            "Documento: " .$this->getDocumento() . "\n" .
-            "Tipo de documento: " .$this->getTipoDocu() . "\n";
-        }
+    public function __construct($nom, $ape, $est, $tipo, $doc){
+        $this->nombre = $nom;
+        $this->apellido = $ape;
+        $this->estado = $est;
+        $this->tipoDoc = $tipo;
+        $this->documento = $doc;
     }
+
+     //Getters
+
+    public function getNombre(){
+        return $this->nombre;
+    }
+    public function getApellido(){
+        return $this->apellido;
+    }
+    public function getEstado(){
+        return $this->estado;
+    }
+    public function getTipoDoc(){
+        return $this->tipoDoc;
+    }
+    public function getDocumento(){
+        return $this->documento;
+    }
+
+     //Setters
+
+    public function setNombre($nom){
+        $this->nombre = $nom;
+    }
+    public function setApellido($ape){
+        $this->apellido = $ape;
+    }
+    public function setEstado($est){
+        $this->estado = $est;
+    }
+    public function setTipoDoc($tipo){
+        $this->tipoDoc = $tipo;
+    }
+    public function setDocumento($doc){
+        $this->documento = $doc;
+    }
+
+    public function __toString(){
+        return "Nombre: " . $this->getNombre() . "\n" . 
+        "Apellido: " . $this->getApellido() . "\n" . 
+        "Estado: " . $this->getEstado() . "\n" . 
+        "Tipo documento: " . $this->getTipoDoc() . "\n" . 
+        "Documento: " . $this->getDocumento() . "\n";
+    }
+
+}
